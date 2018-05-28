@@ -10,7 +10,7 @@
 ### 个人中心<br>
 ![图片](https://images2018.cnblogs.com/blog/1242176/201805/1242176-20180528165507402-1228378097.png)<br>
 ### 后台<br>
-![图片]https://images2018.cnblogs.com/blog/1242176/201805/1242176-20180528165610991-617319902.png)<br>
+![图片](https://images2018.cnblogs.com/blog/1242176/201805/1242176-20180528165610991-617319902.png)<br>
 ### 环境配置：python2.7  pip install -r requirements.txt<br>
 
 ### 创建数据库将movie.sql文件导入<br>
