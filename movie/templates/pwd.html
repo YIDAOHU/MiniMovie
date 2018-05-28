@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container" style="margin-top:76px">
+    {% include 'menu.html' %}
+    <div class="col-md-9">
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h3 class="panel-title"><span class="glyphicon glyphicon-map-marker"></span>&nbsp;会员中心</h3>
+            </div>
+            <div class="panel-body">
+                <form role="form" method="post" action="{% url 'users:forget_pwd' %}">
+                    <fieldset>
+                            <div class="form-group">
+                                <label for="input_oldpwd"><span class="glyphicon glyphicon-lock"></span>&nbsp;输入密码</label>
+                                <input id="input_oldpwd" class="form-control" placeholder="输入新密码" name="password1" type="password" autofocus>
+                            </div>
+                            <div class="col-md-12" id="error_oldpwd"></div>
+                            <div class="form-group">
+                                <label for="input_newpwd"><span class="glyphicon glyphicon-lock"></span>&nbsp;确认密码</label>
+                                <input id="input_newpwd" class="form-control" placeholder="再次输入密码" name="password2" type="password" autofocus>
+                            </div>
+                            <div class="col-md-12" id="error_newpwd"></div>
+                            <button type="submit" class="btn btn-lg btn-success btn-block" id="submit-btn">修改密码</button>
+                        </fieldset>
+                    {% csrf_token %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--内容-->
+{% endblock %}
+
+{% block js %}
+<script>
+        $(document).ready(function(){
+            $("#m-2").addClass("active");
+    });
+</script>
+{% endblock %}

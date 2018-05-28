@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<!--内容-->
+<div class="container" style="margin-top:76px">
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb" style="margin-top:6px;">
+                <li>与"{{ search_keywords }}"有关的电影，共{{ counts }}部</li>
+            </ol>
+        </div>
+        <div class="col-md-12">
+            {% for movie in movies.object_list %}
+                <div class="media">
+                <div class="media-left">
+                    <a href="play.html">
+                        <img class="media-object" src="{{ MEDIA_URL }}{{ movie.logo }}" alt="环太平洋">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">{{ movie.title }}<a href="{% url 'detail' movie.id %}" class="label label-primary pull-right"><span class="glyphicon glyphicon-play"></span>播放影片</a></h4>
+                    {{ movie.info }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-12 text-center">
+            <nav aria-label="Page navigation">
+               <ul class="pagination">
+                        {% if movies.has_previous %}
+                            <li>
+                            <a href="?{{ movies.previous_page_number.querystring }}" aria-label="Previous">
+                                <span aria-hidden="true">上一页</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% for page in movies.pages %}
+                          {% if page %}
+                            {% ifequal page movies.number %}
+                               <li><a href="?{{ page.querystring }}">{{ page }}</a></li>
+                            {% else %}
+                               <li><a href="?{{ page.querystring }}">{{ page }}</a></li>
+                            {% endifequal %}
+                          {% else %}
+                             <li class="none"><a href="">...</a></li>
+                      {% endif %}
+                       {% endfor %}
+                    {% if movies.has_next %}
+                        <li>
+                            <a href="?{{ movies.next_page_number.querystring }}" aria-label="Next">
+                                <span aria-hidden="true">下一页</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container" style="margin-top:76px">
+    {% include 'menu.html' %}
+
+    <div class="col-md-9">
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h3 class="panel-title"><span class="glyphicon glyphicon-map-marker"></span>&nbsp;个人中心</h3>
+            </div>
+            <div class="panel-body">
+                <form role="form" method="post" action="{% url 'users:user_info' %}">
+                    <fieldset>
+                            <div class="form-group">
+                                <label for="input_name"><span class="glyphicon glyphicon-user"></span>&nbsp;昵称</label>
+                                <input id="input_name" class="form-control" placeholder="昵称" name="name" type="text" autofocus value="{{ request.user.name }}">
+                            </div>
+                            <div class="col-md-12" id="error_name"></div>
+                            <div class="form-group">
+                                <label for="input_email"><span class="glyphicon glyphicon-envelope"></span>&nbsp;邮箱</label>
+                                <input id="input_email" class="form-control" placeholder="邮箱" name="email" type="email" autofocus value="{{ request.user.email }}">
+                            </div>
+                            <div class="col-md-12" id="error_email"></div>
+                            <div class="form-group">
+                                <label for="input_phone"><span class="glyphicon glyphicon-phone"></span>&nbsp;手机</label>
+                                <input id="input_phone" class="form-control" placeholder="手机" name="phone" type="text" autofocus value="{{ request.user.phone }}">
+                            </div>
+                            <div class="col-md-12" id="error_phone"></div>
+                            <div class="form-group">
+                                <label for="input_face"><span class="glyphicon glyphicon-picture"></span>&nbsp;头像</label>
+                                <img style="width: 200px;" src="{{ MEDIA_URL }}{{ request.user.image }}" class="img-responsive img-rounded">
+{#                                <a class="btn btn-primary" style="margin-top:6px;"><span class="glyphicon glyphicon-open"></span>&nbsp;上传头像</a>#}
+                                <input id="input_face" class="form-control" name="face" type="hidden" autofocus>
+                            </div>
+                            <div class="col-md-12" id="error_face"></div>
+                            <div class="form-group">
+                                <label for="input_info"><span class="glyphicon glyphicon-edit"></span>&nbsp;简介</label>
+                                <textarea name="info" class="form-control" rows="10" id="input_info">{{ request.user.info }}</textarea>
+                            </div>
+                            <div class="col-md-12" id="error_info"></div>
+                        <button type="submit" class="btn btn-lg btn-success btn-block" name="submit-btn">保存修改</button>
+                        </fieldset>
+                    {% csrf_token %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--内容-->
+{% endblock %}
+
+{% block js %}
+<script>
+        $(document).ready(function(){
+            $("#m-1").addClass("active");
+    });
+</script>
+{% endblock %}

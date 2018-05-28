@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load my_filter %}
+
+{% block content %}
+<!--热门电影-->
+<section id="hotmovie" style="margin-top:76px">
+    <div class="container">
+        <div class="row wow fadeInRight" data-wow-delay="0.6s">
+            <div class="row">
+                <iframe class="wow fadeIn" width="100%" height="375px" frameborder=0 scrolling=no src="{% url 'animation' %}"></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+<!--热门电影-->
+<!--电影列表-->
+<section id="movielist">
+    <div class="container">
+        <div class="row wow fadeIn" data-wow-delay="0.6s">
+            <div class="col-md-12 table-responsive">
+                <table class="table text-left table-bordered" id="movietags">
+                    <tr>
+                        <td style="width:10%;">电影标签</td>
+                        <td style="width:90%;">
+                            {% for tag in tags %}
+                                <a href="?tag_id={{ tag.id }}&star={{ star }}&sort={{ sort }}" class="label label-info"><span class="glyphicon glyphicon-tag"></span>&nbsp;{{ tag.name }}</a>
+                            {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>电影星级</td>
+                        <td>
+                            {% for i in '12345'|make_list %}
+                                <a href="?star={{ i }}&tag_id={{ tag_id }}&sort={{ sort }}" class="label label-warning"><span class="glyphicon glyphicon-star"></span>&nbsp;{{ i }}星</a>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>上映时间</td>
+                        <td>
+                            <a href="?sort=nearest&star={{ star }}&tag_id={{ tag_id }}" class="label label-default"><span class="glyphicon glyphicon-time">&nbsp;最近</span></a>
+                            <a href="?sort=past&star={{ star }}&tag_id={{ tag_id }}" class="label label-default"><span class="glyphicon glyphicon-time">&nbsp;更早</span></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>播放数量</td>
+                        <td>
+                            <a href="?sort=play_high&star={{ star }}&tag_id={{ tag_id }}" class="label label-success"><span class="glyphicon glyphicon-arrow-down">&nbsp;从高到底</span></a>
+                            &nbsp;
+                            <a href="?sort=play_low&star={{ star }}&tag_id={{ tag_id }}" class="label label-danger"><span class="glyphicon glyphicon-arrow-up">&nbsp;从低到高</span></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>评论数量</td>
+                        <td>
+                            <a href="?sort=comment_high&star={{ star }}&tag_id={{ tag_id }}" class="label label-success"><span class="glyphicon glyphicon-arrow-down">&nbsp;从高到底</span></a>
+                            &nbsp;
+                            <a href="?sort=comment_low&star={{ star }}&tag_id={{ tag_id }}" class="label label-danger"><span class="glyphicon glyphicon-arrow-up">&nbsp;从低到高</span></a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        {% for movie in movies.object_list %}
+             <div class="col-md-3">
+                <div class="movielist text-center">
+                    <!--<img data-original="holder.js/262x166"
+                             class="img-responsive lazy center-block" alt="">-->
+                    <img src="{{ MEDIA_URL }}{{ movie.logo }}" class="img-responsive center-block" alt="">
+                    <div class="text-left" style="margin-left:auto;margin-right:auto;width:210px;">
+                        <span style="color:#999;font-style: italic;">{{ movie.title }}</span><br>
+                        <div>
+                            {% for foo in movie.star|star_list %}
+                                <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <a href="{% url 'detail' movie.id %}" class="btn btn-primary" target="_blank" role="button"><span class="glyphicon glyphicon-play"></span>&nbsp;播放</a>
+                </div>
+            </div>
+        {% endfor %}
+            <div class="col-md-12">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        {% if movies.has_previous %}
+                            <li>
+                            <a href="?{{ movies.previous_page_number.querystring }}" aria-label="Previous">
+                                <span aria-hidden="true">上一页</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% for page in movies.pages %}
+                          {% if page %}
+                            {% ifequal page movies.number %}
+                               <li><a href="?{{ page.querystring }}">{{ page }}</a></li>
+                            {% else %}
+                               <li><a href="?{{ page.querystring }}">{{ page }}</a></li>
+                            {% endifequal %}
+                          {% else %}
+                             <li class="none"><a href="">...</a></li>
+                      {% endif %}
+                       {% endfor %}
+                    {% if movies.has_next %}
+                        <li>
+                            <a href="?{{ movies.next_page_number.querystring }}" aria-label="Next">
+                                <span aria-hidden="true">下一页</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

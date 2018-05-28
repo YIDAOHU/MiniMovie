@@ -1,0 +1,19 @@
+<div class="col-md-3">
+        <div class="list-group">
+            <a id="m-1" href="{% url 'users:user_info' %}" class="list-group-item">
+                <span class="glyphicon glyphicon-user"></span>&nbsp;个人中心
+            </a>
+             <a id="m-2" href="{% url 'users:forget_pwd' %}" class="list-group-item">
+                <span class="glyphicon glyphicon-lock"></span>&nbsp;修改密码
+            </a>
+            <a id="m-3" href="{% url 'users:comment' %}" class="list-group-item">
+                <span class="glyphicon glyphicon-comment"></span>&nbsp;评论记录
+            </a>
+            <a id="m-4" href="{% url 'users:login_log' %}" class="list-group-item">
+                <span class="glyphicon glyphicon-calendar"></span>&nbsp;登录日志
+            </a>
+            <a id="m-5" href="{% url 'users:my_movie' %}" class="list-group-item">
+                <span class="glyphicon glyphicon-heart"></span>&nbsp;收藏电影
+            </a>
+        </div>
+    </div>
