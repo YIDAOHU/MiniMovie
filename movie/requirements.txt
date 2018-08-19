@@ -1,4 +1,3 @@
-certifi==2018.4.16
 chardet==3.0.4
 coreapi==2.3.3
 coreschema==0.0.4
