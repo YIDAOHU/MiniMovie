@@ -2,7 +2,7 @@ chardet==3.0.4
 coreapi==2.3.3
 coreschema==0.0.4
 diff-match-patch==20121119
-Django==1.11.3
+Django==2.2.24
 django-crispy-forms==1.7.2
 django-filter==1.1.0
 django-formtools==2.0
